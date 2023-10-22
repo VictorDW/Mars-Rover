@@ -22,4 +22,9 @@ public class RoverController {
     public ResponseEntity<RoverDataResponse> createRover(@RequestBody RoverDataRequest roverDataRequest) {
         return ResponseEntity.ok().body(roverService.createRover(roverDataRequest));
     }
+
+    @PostMapping("/initialization")
+    public ResponseEntity<String> initialization() {
+        return ResponseEntity.ok().body(roverService.initialization());
+    }
 }

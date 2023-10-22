@@ -6,5 +6,6 @@ import com.rover.MarsRover.model.Rover;
 
 public interface IRoverService {
     RoverDataResponse createRover(RoverDataRequest roverDataRequest);
+    String initialization();
     Rover getInstanceRovert();
 }

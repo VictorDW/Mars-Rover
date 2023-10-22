@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class behavioralValidationsImpl implements IValidations<CoordinatesData>{
     @Override
-    public void Validations(CoordinatesData data) {
+    public void validations(CoordinatesData data) {
 
         this.runValidation(data, this::isMapLimit);
 

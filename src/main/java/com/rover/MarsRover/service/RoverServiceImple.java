@@ -14,16 +14,18 @@ public class RoverServiceImple implements IRoverService{
 
     private final RoverRepository roverRepository;
     private final IMapNavigationService mapNavigationService;
+    private final IControlCenter controlCenter;
     private final IValidations validations;
     private Rover roverIntance;
 
 
     public RoverServiceImple(RoverRepository roverRepository,
-                             IMapNavigationService mapNavigationService,
-                            IValidations validations) {
+                                         IMapNavigationService mapNavigationService,
+                                         IValidations validations) {
 
         this.roverRepository = roverRepository;
         this.mapNavigationService = mapNavigationService;
+        this.controlCenter = new ControlCenterImple(this);
         this.validations = validations;
         this.roverIntance = getInstanceRovert();
     }
@@ -31,7 +33,7 @@ public class RoverServiceImple implements IRoverService{
     @Override
     public RoverDataResponse createRover(RoverDataRequest roverDataRequest) {
 
-        validations.Validations(new CoordinatesData(
+        validations.validations(new CoordinatesData(
                                         roverDataRequest.coordinateX(),
                                         roverDataRequest.coordinateY(),
                                         mapNavigationService.getIntanceMap().getWidth(),
@@ -47,6 +49,14 @@ public class RoverServiceImple implements IRoverService{
 
         return new RoverDataResponse(roverIntance);
     }
+
+    @Override
+    public String initialization() {
+
+        controlCenter.loadItems(roverIntance, mapNavigationService.getIntanceMap());
+        return "funciona";
+    }
+
 
     @Override
     public Rover getInstanceRovert() {
