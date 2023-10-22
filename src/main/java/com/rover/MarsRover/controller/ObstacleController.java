@@ -1,6 +1,6 @@
 package com.rover.MarsRover.controller;
 
-import com.rover.MarsRover.DTO.ObstacleDataRequest;
+import com.rover.MarsRover.DTO.request.ObstacleDataRequest;
 import com.rover.MarsRover.model.Obstacle;
 import com.rover.MarsRover.model.Position;
 import org.springframework.web.bind.annotation.PostMapping;

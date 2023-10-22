@@ -1,4 +1,4 @@
-package com.rover.MarsRover.DTO;
+package com.rover.MarsRover.DTO.request;
 
 import com.rover.MarsRover.model.Orientation;
 

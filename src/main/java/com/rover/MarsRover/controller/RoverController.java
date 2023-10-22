@@ -1,7 +1,7 @@
 package com.rover.MarsRover.controller;
 
 
-import com.rover.MarsRover.DTO.RoverDataRequest;
+import com.rover.MarsRover.DTO.request.RoverDataRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

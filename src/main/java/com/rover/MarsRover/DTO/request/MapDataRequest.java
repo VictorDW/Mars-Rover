@@ -1,4 +1,4 @@
-package com.rover.MarsRover.DTO;
+package com.rover.MarsRover.DTO.request;
 
 public record MapDataRequest(
         Integer width,
