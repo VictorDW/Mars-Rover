@@ -3,13 +3,13 @@ package com.rover.MarsRover.service;
 import com.rover.MarsRover.model.Map;
 import com.rover.MarsRover.model.Rover;
 
-public class ControlCenterImple implements IControlCenter{
+public class ControlCenterImpl implements IControlCenter{
 
     private final IRoverService roverService;
     private Map map;
     private Rover rover;
 
-    public ControlCenterImple(IRoverService roverService) {
+    public ControlCenterImpl(IRoverService roverService) {
         this.roverService = roverService;
     }
     @Override

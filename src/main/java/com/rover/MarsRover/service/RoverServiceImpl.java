@@ -5,35 +5,38 @@ import com.rover.MarsRover.DTO.response.RoverDataResponse;
 import com.rover.MarsRover.model.Position;
 import com.rover.MarsRover.model.Rover;
 import com.rover.MarsRover.repository.RoverRepository;
-import com.rover.MarsRover.validations.CoordinatesData;
-import com.rover.MarsRover.validations.IValidations;
+import com.rover.MarsRover.validations.*;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoverServiceImple implements IRoverService{
+public class RoverServiceImpl implements IRoverService{
 
     private final RoverRepository roverRepository;
     private final IMapNavigationService mapNavigationService;
     private final IControlCenter controlCenter;
-    private final IValidations validations;
+    private final BehavioralValidations behavioralValidations;
+    private final InitialValidations initialValidations;
     private Rover roverIntance;
 
 
-    public RoverServiceImple(RoverRepository roverRepository,
-                                         IMapNavigationService mapNavigationService,
-                                         IValidations validations) {
+    public RoverServiceImpl(RoverRepository roverRepository,
+                            IMapNavigationService mapNavigationService,
+                            BehavioralValidations behavioralValidations,
+                            InitialValidations initialValidations) {
 
         this.roverRepository = roverRepository;
         this.mapNavigationService = mapNavigationService;
-        this.controlCenter = new ControlCenterImple(this);
-        this.validations = validations;
+        this.controlCenter = new ControlCenterImpl(this);
+        this.behavioralValidations = behavioralValidations;
+        this.initialValidations = initialValidations;
         this.roverIntance = getInstanceRovert();
     }
 
     @Override
     public RoverDataResponse createRover(RoverDataRequest roverDataRequest) {
 
-        validations.validations(new CoordinatesData(
+        //se ejecutan las validaciones de comportamiento
+        behavioralValidations.validations(new CoordinatesData(
                                         roverDataRequest.coordinateX(),
                                         roverDataRequest.coordinateY(),
                                         mapNavigationService.getIntanceMap().getWidth(),
@@ -53,8 +56,12 @@ public class RoverServiceImple implements IRoverService{
     @Override
     public String initialization() {
 
+        //se ejecuta las validaciones de inicialización
+        initialValidations.validations(new InitialData(roverIntance,  mapNavigationService.getIntanceMap()));
+
         controlCenter.loadItems(roverIntance, mapNavigationService.getIntanceMap());
-        return "funciona";
+
+        return "El Rover esta listo para explorar";
     }
 
 

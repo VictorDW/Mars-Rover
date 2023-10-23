@@ -41,7 +41,7 @@ public class MapNavigationServiceImpl implements IMapNavigationService{
 
     public Map getIntanceMap() {
 
-        if (mapInstance == null) {
+        if (mapInstance == null ) {
                mapInstance = mapRepository.findAll().stream()
                         .findFirst()
                         .orElseGet(Map::new);

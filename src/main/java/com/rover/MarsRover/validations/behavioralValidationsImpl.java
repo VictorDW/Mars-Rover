@@ -3,7 +3,7 @@ package com.rover.MarsRover.validations;
 import org.springframework.stereotype.Component;
 
 @Component
-public class behavioralValidationsImpl implements IValidations<CoordinatesData>{
+public class behavioralValidationsImpl implements BehavioralValidations{
     @Override
     public void validations(CoordinatesData data) {
 
