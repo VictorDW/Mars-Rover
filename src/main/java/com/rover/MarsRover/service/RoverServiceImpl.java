@@ -1,12 +1,16 @@
 package com.rover.MarsRover.service;
 
 import com.rover.MarsRover.DTO.request.RoverDataRequest;
+import com.rover.MarsRover.DTO.response.CoordinateDataResponse;
 import com.rover.MarsRover.DTO.response.RoverDataResponse;
 import com.rover.MarsRover.model.Position;
 import com.rover.MarsRover.model.Rover;
 import com.rover.MarsRover.repository.RoverRepository;
 import com.rover.MarsRover.validations.*;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class RoverServiceImpl implements IRoverService{
@@ -26,7 +30,7 @@ public class RoverServiceImpl implements IRoverService{
 
         this.roverRepository = roverRepository;
         this.mapNavigationService = mapNavigationService;
-        this.controlCenter = new ControlCenterImpl(this);
+        this.controlCenter = new ControlCenterImpl(this, behavioralValidations);
         this.behavioralValidations = behavioralValidations;
         this.initialValidations = initialValidations;
         this.roverIntance = getInstanceRovert();
@@ -62,6 +66,18 @@ public class RoverServiceImpl implements IRoverService{
         controlCenter.loadItems(roverIntance, mapNavigationService.getIntanceMap());
 
         return "El Rover esta listo para explorar";
+    }
+
+    @Override
+    public CoordinateDataResponse moveRover(String commands) {
+
+        String[] split = commands.split(",");
+        List<String> listCommands = Arrays.asList(split);
+
+        return listCommands.stream()
+                        .map(controlCenter::assingMovement)
+                        .toList()
+                        .get(listCommands.size() - 1);
     }
 
 

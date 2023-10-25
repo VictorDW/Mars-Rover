@@ -28,4 +28,11 @@ public class Rover {
      public boolean isActive() {
          return active;
      }
+
+     public void setPositionX(Integer x) {
+         position.setCoordinateX(x);
+     }
+    public void setPositionY(Integer y) {
+        position.setCoordinateY(y);
+    }
 }
