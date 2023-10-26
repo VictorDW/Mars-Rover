@@ -1,19 +1,26 @@
-package com.rover.MarsRover.service;
+package com.rover.MarsRover.service.impl;
 
 import com.rover.MarsRover.DTO.request.RoverDataRequest;
 import com.rover.MarsRover.DTO.response.CoordinateDataResponse;
 import com.rover.MarsRover.DTO.response.RoverDataResponse;
+import com.rover.MarsRover.model.Orientation;
 import com.rover.MarsRover.model.Position;
 import com.rover.MarsRover.model.Rover;
 import com.rover.MarsRover.repository.RoverRepository;
+import com.rover.MarsRover.service.IControlCenter;
+import com.rover.MarsRover.service.IMapNavigationService;
+import com.rover.MarsRover.service.IRoverService;
+import com.rover.MarsRover.service.impl.ControlCenterImpl;
 import com.rover.MarsRover.validations.*;
+import com.rover.MarsRover.validations.DTO.CoordinatesData;
+import com.rover.MarsRover.validations.DTO.InitialData;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class RoverServiceImpl implements IRoverService{
+public class RoverServiceImpl implements IRoverService {
 
     private final RoverRepository roverRepository;
     private final IMapNavigationService mapNavigationService;
@@ -78,6 +85,27 @@ public class RoverServiceImpl implements IRoverService{
                         .map(controlCenter::assingMovement)
                         .toList()
                         .get(listCommands.size() - 1);
+    }
+
+    @Override
+    public String turnRover(String command) {
+
+        if(command.equals("R")) {
+            return controlCenter.turn(
+                        beforeOrientatation -> {
+                            int newOrientation = beforeOrientatation.ordinal() + 1;
+                            return newOrientation > (Orientation.values().length - 1) ?
+                                        0 : newOrientation;
+                        });
+        }else{
+            return controlCenter.turn(
+                        beforeOrientatation -> {
+                            int newOrientation = beforeOrientatation.ordinal() - 1;
+                            return newOrientation < 0 ?
+                                        (Orientation.values().length-1) :
+                                         newOrientation;
+                        });
+        }
     }
 
 

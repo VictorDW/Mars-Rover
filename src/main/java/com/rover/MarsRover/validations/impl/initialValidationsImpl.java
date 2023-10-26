@@ -1,5 +1,7 @@
-package com.rover.MarsRover.validations;
+package com.rover.MarsRover.validations.impl;
 
+import com.rover.MarsRover.validations.DTO.InitialData;
+import com.rover.MarsRover.validations.InitialValidations;
 import org.springframework.stereotype.Component;
 
 @Component

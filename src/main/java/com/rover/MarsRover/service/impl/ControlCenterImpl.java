@@ -1,14 +1,18 @@
-package com.rover.MarsRover.service;
+package com.rover.MarsRover.service.impl;
 
 import com.rover.MarsRover.DTO.response.CoordinateDataResponse;
 import com.rover.MarsRover.model.Map;
+import com.rover.MarsRover.model.Orientation;
 import com.rover.MarsRover.model.Rover;
+import com.rover.MarsRover.service.IControlCenter;
+import com.rover.MarsRover.service.IRoverService;
 import com.rover.MarsRover.validations.BehavioralValidations;
-import com.rover.MarsRover.validations.CoordinatesData;
+import com.rover.MarsRover.validations.DTO.CoordinatesData;
 
 import java.util.List;
+import java.util.function.ToIntFunction;
 
-public class ControlCenterImpl implements IControlCenter{
+public class ControlCenterImpl implements IControlCenter {
 
     private final IRoverService roverService;
     private final BehavioralValidations behavioralValidations;
@@ -18,7 +22,7 @@ public class ControlCenterImpl implements IControlCenter{
     public ControlCenterImpl(IRoverService roverService, BehavioralValidations behavioralValidations) {
         this.roverService = roverService;
         this.behavioralValidations = behavioralValidations;
-        ConfigMovement.functionInitialization();
+        ConfigMovement.MovementInitialization();
     }
 
     @Override
@@ -63,6 +67,21 @@ public class ControlCenterImpl implements IControlCenter{
         System.out.println("("+afterCoordinateX+","+afterCoordinateY+")");
 
         return new CoordinateDataResponse(afterCoordinateX, afterCoordinateY);
+    }
+
+    @Override
+    public String turn(ToIntFunction<Orientation> rotation) {
+
+        Orientation afterOrientation =
+                Orientation.getByPosition(
+                        rotation.applyAsInt(rover.getOrientation())
+                );
+
+        rover.setOrientation(afterOrientation);
+
+        System.out.println(afterOrientation);
+
+        return afterOrientation.name();
     }
 
 

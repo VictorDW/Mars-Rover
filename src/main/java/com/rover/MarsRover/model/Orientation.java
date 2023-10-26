@@ -4,5 +4,9 @@ public enum Orientation {
     N,
     E,
     S,
-    W
+    W;
+
+    public static Orientation getByPosition(Integer value) {
+        return values()[value];
+    }
 }

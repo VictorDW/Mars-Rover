@@ -1,4 +1,4 @@
-package com.rover.MarsRover.validations;
+package com.rover.MarsRover.validations.DTO;
 
 public record CoordinatesData(
         Integer x1,

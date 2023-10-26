@@ -1,15 +1,16 @@
-package com.rover.MarsRover.service;
+package com.rover.MarsRover.service.impl;
 
 import com.rover.MarsRover.DTO.request.MapDataRequest;
 import com.rover.MarsRover.DTO.response.MapDataResponse;
 import com.rover.MarsRover.model.Map;
 import com.rover.MarsRover.repository.MapRepository;
+import com.rover.MarsRover.service.IMapNavigationService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class MapNavigationServiceImpl implements IMapNavigationService{
+public class MapNavigationServiceImpl implements IMapNavigationService {
 
     private final MapRepository mapRepository;
     private Map mapInstance;

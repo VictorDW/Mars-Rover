@@ -9,5 +9,7 @@ public interface IRoverService {
     RoverDataResponse createRover(RoverDataRequest roverDataRequest);
     String initialization();
     CoordinateDataResponse moveRover(String commands);
+    String turnRover(String command);
     Rover getInstanceRovert();
+
 }

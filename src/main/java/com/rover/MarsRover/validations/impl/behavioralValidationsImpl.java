@@ -1,9 +1,11 @@
-package com.rover.MarsRover.validations;
+package com.rover.MarsRover.validations.impl;
 
+import com.rover.MarsRover.validations.BehavioralValidations;
+import com.rover.MarsRover.validations.DTO.CoordinatesData;
 import org.springframework.stereotype.Component;
 
 @Component
-public class behavioralValidationsImpl implements BehavioralValidations{
+public class behavioralValidationsImpl implements BehavioralValidations {
     @Override
     public void validations(CoordinatesData data) {
 

@@ -1,4 +1,4 @@
-package com.rover.MarsRover.validations;
+package com.rover.MarsRover.validations.DTO;
 
 import com.rover.MarsRover.model.Map;
 import com.rover.MarsRover.model.Rover;
