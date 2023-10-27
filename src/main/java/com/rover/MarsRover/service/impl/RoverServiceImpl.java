@@ -10,7 +10,6 @@ import com.rover.MarsRover.repository.RoverRepository;
 import com.rover.MarsRover.service.IControlCenter;
 import com.rover.MarsRover.service.IMapNavigationService;
 import com.rover.MarsRover.service.IRoverService;
-import com.rover.MarsRover.service.impl.ControlCenterImpl;
 import com.rover.MarsRover.validations.*;
 import com.rover.MarsRover.validations.DTO.CoordinatesData;
 import com.rover.MarsRover.validations.DTO.InitialData;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoverServiceImpl implements IRoverService {
@@ -76,7 +76,23 @@ public class RoverServiceImpl implements IRoverService {
     }
 
     @Override
+    public RoverDataResponse getAllRover() {
+
+        /*Optional<Rover> rover = roverRepository.findAll().stream().findFirst();
+        return   rover.map(RoverDataResponse::new).orElse(null);
+         */
+        return roverIntance.isActive()? new RoverDataResponse(roverIntance) : null;
+    }
+
+    @Override
+    public void updateRoverPosition(Rover rover) {
+        roverRepository.save(rover);
+    }
+
+    @Override
     public CoordinateDataResponse moveRover(String commands) {
+
+        initialValidations.validations(new InitialData(roverIntance,  mapNavigationService.getIntanceMap()));
 
         String[] split = commands.split(",");
         List<String> listCommands = Arrays.asList(split);
@@ -89,6 +105,8 @@ public class RoverServiceImpl implements IRoverService {
 
     @Override
     public String turnRover(String command) {
+
+        initialValidations.validations(new InitialData(roverIntance,  mapNavigationService.getIntanceMap()));
 
         if(command.equals("R")) {
             return controlCenter.turn(
@@ -107,7 +125,6 @@ public class RoverServiceImpl implements IRoverService {
                         });
         }
     }
-
 
     @Override
     public Rover getInstanceRovert() {

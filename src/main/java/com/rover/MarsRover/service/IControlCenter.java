@@ -11,5 +11,7 @@ public interface IControlCenter {
     void loadItems(Rover rover, Map map);
     CoordinateDataResponse assingMovement(String command);
     CoordinateDataResponse assingNextCoordinates(Integer afterCoordinateX, Integer afterCoordinateY);
-    String turn(ToIntFunction<Orientation> rotation);
+   String turn(ToIntFunction<Orientation> rotation);
+
+   //String turn(String command);
 }

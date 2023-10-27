@@ -4,7 +4,6 @@ package com.rover.MarsRover.controller;
 import com.rover.MarsRover.DTO.request.RoverDataRequest;
 import com.rover.MarsRover.DTO.response.CoordinateDataResponse;
 import com.rover.MarsRover.DTO.response.RoverDataResponse;
-import com.rover.MarsRover.model.Orientation;
 import com.rover.MarsRover.service.IRoverService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +24,11 @@ public class RoverController {
     @PostMapping("/initialization")
     public ResponseEntity<String> initialization() {
         return ResponseEntity.ok().body(roverService.initialization());
+    }
+
+    @GetMapping
+    public ResponseEntity<RoverDataResponse> getAllRover() {
+        return ResponseEntity.ok().body(roverService.getAllRover());
     }
 
     @PostMapping("/move/{commands}")

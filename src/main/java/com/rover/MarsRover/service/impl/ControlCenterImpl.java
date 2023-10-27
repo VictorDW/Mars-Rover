@@ -23,6 +23,7 @@ public class ControlCenterImpl implements IControlCenter {
         this.roverService = roverService;
         this.behavioralValidations = behavioralValidations;
         ConfigMovement.MovementInitialization();
+        //ConfigMovement.rotationInitialization();
     }
 
     @Override
@@ -64,6 +65,8 @@ public class ControlCenterImpl implements IControlCenter {
         rover.setPositionX(afterCoordinateX);
         rover.setPositionY(afterCoordinateY);
 
+        roverService.updateRoverPosition(rover);
+
         System.out.println("("+afterCoordinateX+","+afterCoordinateY+")");
 
         return new CoordinateDataResponse(afterCoordinateX, afterCoordinateY);
@@ -72,17 +75,22 @@ public class ControlCenterImpl implements IControlCenter {
     @Override
     public String turn(ToIntFunction<Orientation> rotation) {
 
-        Orientation afterOrientation =
+       Orientation afterOrientation =
                 Orientation.getByPosition(
                         rotation.applyAsInt(rover.getOrientation())
                 );
 
-        rover.setOrientation(afterOrientation);
+      /*  Orientation afterOrientation =
+                Orientation.getByPosition(
+                        ConfigMovement.getRotation(command)
+                                .applyAsInt(rover.getOrientation())
+                );
 
-        System.out.println(afterOrientation);
+       */
+
+        rover.setOrientation(afterOrientation);
+        roverService.updateRoverPosition(rover);
 
         return afterOrientation.name();
     }
-
-
 }
