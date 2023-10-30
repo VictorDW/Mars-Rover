@@ -4,7 +4,6 @@ import com.rover.MarsRover.DTO.request.MapDataRequest;
 import com.rover.MarsRover.DTO.response.MapDataResponse;
 import com.rover.MarsRover.service.IMapNavigationService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +21,6 @@ public class MapNavigationController {
 
     @GetMapping
     public ResponseEntity<MapDataResponse> getAllMap() {
-        return ResponseEntity.ok().body(mapNavigationService.getAllMap());
+        return ResponseEntity.ok().body(mapNavigationService.getMap());
     }
 }

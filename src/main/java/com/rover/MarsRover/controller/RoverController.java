@@ -28,7 +28,7 @@ public class RoverController {
 
     @GetMapping
     public ResponseEntity<RoverDataResponse> getAllRover() {
-        return ResponseEntity.ok().body(roverService.getAllRover());
+        return ResponseEntity.ok().body(roverService.getRover());
     }
 
     @PostMapping("/move/{commands}")

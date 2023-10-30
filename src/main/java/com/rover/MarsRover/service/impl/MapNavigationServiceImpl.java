@@ -34,12 +34,13 @@ public class MapNavigationServiceImpl implements IMapNavigationService {
     }
 
     @Override
-    public MapDataResponse getAllMap() {
+    public MapDataResponse getMap() {
 
         Optional<Map> mapNavigation = mapRepository.findAll().stream().findFirst();
         return mapNavigation.map(MapDataResponse::new).orElse(null);
     }
 
+    @Override
     public Map getIntanceMap() {
 
         if (mapInstance == null ) {

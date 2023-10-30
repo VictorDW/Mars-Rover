@@ -6,7 +6,6 @@ import com.rover.MarsRover.model.Map;
 
 public interface IMapNavigationService {
     MapDataResponse createMap(MapDataRequest mapDataRequest);
-    MapDataResponse getAllMap();
+    MapDataResponse getMap();
     Map getIntanceMap();
-
 }

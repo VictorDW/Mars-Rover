@@ -48,12 +48,14 @@ public class ControlCenterImpl implements IControlCenter {
                                 rover.getPosition().getCoordinateY()
                         );
 
-        //se ejecutan las validaciones de comportamiento
-        behavioralValidations.validations(new CoordinatesData(
-                nextPosition.get(0),
-                nextPosition.get(1),
-                map.getWidth(),
-                map.getHeight())
+        //se ejecutan las validaciones de comportamiento para validar la nueva posición
+        behavioralValidations.validations(
+                new CoordinatesData(
+                        nextPosition.get(0),
+                        nextPosition.get(1),
+                        map.getWidth(),
+                        map.getHeight()
+                )
         );
 
         return assingNextCoordinates(nextPosition.get(0), nextPosition.get(1));
@@ -65,7 +67,7 @@ public class ControlCenterImpl implements IControlCenter {
         rover.setPositionX(afterCoordinateX);
         rover.setPositionY(afterCoordinateY);
 
-        roverService.updateRoverPosition(rover);
+        roverService.updateRoverCoordinates(rover);
 
         System.out.println("("+afterCoordinateX+","+afterCoordinateY+")");
 
@@ -80,16 +82,18 @@ public class ControlCenterImpl implements IControlCenter {
                         rotation.applyAsInt(rover.getOrientation())
                 );
 
-      /*  Orientation afterOrientation =
+      /*
+      //Variante para la implementación de la rotación, se obtiene es de ConfigMovement.
+
+      Orientation afterOrientation =
                 Orientation.getByPosition(
                         ConfigMovement.getRotation(command)
                                 .applyAsInt(rover.getOrientation())
                 );
 
        */
-
         rover.setOrientation(afterOrientation);
-        roverService.updateRoverPosition(rover);
+        roverService.updateRoverCoordinates(rover);
 
         return afterOrientation.name();
     }

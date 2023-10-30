@@ -11,7 +11,7 @@ import java.util.function.ToIntFunction;
 public final class ConfigMovement {
 
     private static final Map<String, BiFunction<Integer, Integer, List<Integer>>> functionalities = new HashMap<>();
-    private static final Map<String, ToIntFunction<Orientation>> rotarionOrientation = new HashMap<>();
+   // private static final Map<String, ToIntFunction<Orientation>> rotarionOrientation = new HashMap<>();
 
     private ConfigMovement() {}
 
@@ -28,6 +28,8 @@ public final class ConfigMovement {
     }
 
  /*  public static void rotationInitialization() {
+
+        // implementación para la rotación almacenada en un direccionario
 
         rotarionOrientation.put("R",
                 beforeOrientatation -> {

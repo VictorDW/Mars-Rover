@@ -8,8 +8,8 @@ import com.rover.MarsRover.model.Rover;
 public interface IRoverService {
     RoverDataResponse createRover(RoverDataRequest roverDataRequest);
     String initialization();
-    RoverDataResponse getAllRover();
-    void updateRoverPosition(Rover rover);
+    RoverDataResponse getRover();
+    void updateRoverCoordinates(Rover rover);
     CoordinateDataResponse moveRover(String commands);
     String turnRover(String command);
     Rover getInstanceRovert();

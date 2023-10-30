@@ -47,11 +47,13 @@ public class RoverServiceImpl implements IRoverService {
     public RoverDataResponse createRover(RoverDataRequest roverDataRequest) {
 
         //se ejecutan las validaciones de comportamiento
-        behavioralValidations.validations(new CoordinatesData(
-                                        roverDataRequest.coordinateX(),
-                                        roverDataRequest.coordinateY(),
-                                        mapNavigationService.getIntanceMap().getWidth(),
-                                        mapNavigationService.getIntanceMap().getHeight())
+        behavioralValidations.validations(
+                new CoordinatesData(
+                        roverDataRequest.coordinateX(),
+                        roverDataRequest.coordinateY(),
+                        mapNavigationService.getIntanceMap().getWidth(),
+                        mapNavigationService.getIntanceMap().getHeight()
+                )
         );
 
         roverIntance.setName(roverDataRequest.name());
@@ -68,7 +70,12 @@ public class RoverServiceImpl implements IRoverService {
     public String initialization() {
 
         //se ejecuta las validaciones de inicialización
-        initialValidations.validations(new InitialData(roverIntance,  mapNavigationService.getIntanceMap()));
+        initialValidations.validations(
+                new InitialData(
+                        roverIntance,
+                        mapNavigationService.getIntanceMap()
+                )
+        );
 
         controlCenter.loadItems(roverIntance, mapNavigationService.getIntanceMap());
 
@@ -76,23 +83,32 @@ public class RoverServiceImpl implements IRoverService {
     }
 
     @Override
-    public RoverDataResponse getAllRover() {
+    public RoverDataResponse getRover() {
 
-        /*Optional<Rover> rover = roverRepository.findAll().stream().findFirst();
-        return   rover.map(RoverDataResponse::new).orElse(null);
+        /*
+        //Esta variante es para buscar directamente en la BD
+
+        Optional<Rover> rover = roverRepository.findAll().stream().findFirst();
+        return rover.map(RoverDataResponse::new).orElse(null);
          */
         return roverIntance.isActive()? new RoverDataResponse(roverIntance) : null;
     }
 
     @Override
-    public void updateRoverPosition(Rover rover) {
-        roverRepository.save(rover);
+    public void updateRoverCoordinates(Rover rover) {
+       roverIntance = roverRepository.save(rover);
     }
 
     @Override
     public CoordinateDataResponse moveRover(String commands) {
 
-        initialValidations.validations(new InitialData(roverIntance,  mapNavigationService.getIntanceMap()));
+        //se ejecuta las validaciones de inicialización
+        initialValidations.validations(
+                new InitialData(
+                        roverIntance,
+                        mapNavigationService.getIntanceMap()
+                )
+        );
 
         String[] split = commands.split(",");
         List<String> listCommands = Arrays.asList(split);
@@ -106,7 +122,13 @@ public class RoverServiceImpl implements IRoverService {
     @Override
     public String turnRover(String command) {
 
-        initialValidations.validations(new InitialData(roverIntance,  mapNavigationService.getIntanceMap()));
+        //se ejecuta las validaciones de inicialización
+        initialValidations.validations(
+                new InitialData(
+                        roverIntance,
+                        mapNavigationService.getIntanceMap()
+                )
+        );
 
         if(command.equals("R")) {
             return controlCenter.turn(

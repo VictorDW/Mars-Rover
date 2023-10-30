@@ -2,22 +2,27 @@ package com.rover.MarsRover.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity(name = "Obstacle")
 @Table(name = "obstacle")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 @ToString
 public class Obstacle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     @Embedded
     private Position position;
+
+    public void setPositionX(Integer x) {
+        position.setCoordinateX(x);
+    }
+    public void setPositionY(Integer y) {
+        position.setCoordinateY(y);
+    }
 }
