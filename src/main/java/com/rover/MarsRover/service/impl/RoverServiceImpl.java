@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RoverServiceImpl implements IRoverService {
@@ -47,7 +46,9 @@ public class RoverServiceImpl implements IRoverService {
     @Override
     public RoverDataResponse createRover(RoverDataRequest roverDataRequest) {
 
-        InitialValidations.mapValid(mapNavigationService.getIntanceMap());
+        //validación de inicialización
+        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
+
         //se ejecutan las validaciones de comportamiento
         behavioralValidations.validations(
                 new CoordinatesData(

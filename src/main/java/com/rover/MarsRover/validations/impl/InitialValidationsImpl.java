@@ -10,7 +10,7 @@ public class InitialValidationsImpl implements InitialValidations {
     @Override
     public void validations(InitialData components) {
 
-        this.runValidation(components, component->InitialValidations.mapValid(component.map()))
+        this.runValidation(components, component -> InitialValidations.isMapActive(component.map()))
                 .runValidation(components, this::isRoverActive)
                 .runValidation(components, this::isInitiated);
 
@@ -28,17 +28,6 @@ public class InitialValidationsImpl implements InitialValidations {
 
               */
     }
-
-    private void isMapActive(InitialData components) {
-
-
-       /* if(!components.map().isActive()) {
-            throw new RuntimeException("Se debe crear un Mapa inicialmente");
-        }
-
-        */
-    }
-
 
     private void isRoverActive(InitialData components) {
 

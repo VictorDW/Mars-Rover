@@ -10,6 +10,7 @@ import com.rover.MarsRover.service.IMapNavigationService;
 import com.rover.MarsRover.service.IObstacleService;
 import com.rover.MarsRover.validations.BehavioralValidations;
 import com.rover.MarsRover.validations.DTO.CoordinatesData;
+import com.rover.MarsRover.validations.InitialValidations;
 import com.rover.MarsRover.validations.IntegrityValidation;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,10 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
     @Override
     public ObstacleDataResponse createObstacle(ObstacleDataRequest obstacleDataRequest) {
 
+        //validación de inicialización
+        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
+
+        //validaciones de comportamiento
         behavioralValidations.validations(
                 new CoordinatesData(
                         obstacleDataRequest.coordinateX(),

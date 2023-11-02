@@ -16,17 +16,19 @@ public class BehavioralValidationsImpl implements BehavioralValidations {
     @Override
     public void validations(CoordinatesData coordinates) {
 
-        this.runValidation(coordinates, this::isCoordenateMapValid)
-                .runValidation(coordinates, this::isMapLimit)
+       // this.runValidation(coordinates, this::isCoordenateMapValid)
+        this.runValidation(coordinates, this::isMapLimit)
                 .runValidation(coordinates, this::thereIsObstacle);
     }
 
-    private void isCoordenateMapValid(CoordinatesData coordinates) {
+  /*  private void isCoordenateMapValid(CoordinatesData coordinates) {
 
         if(Objects.isNull(coordinates.x2()) || Objects.isNull(coordinates.y2())) {
             throw new RuntimeException("Error en las dimensiones del mapa");
         }
     }
+
+   */
 
     private void isMapLimit(CoordinatesData coordinates) {
 
