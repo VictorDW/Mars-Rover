@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractObstacleService {
-    private final static Map<Long, Obstacle> mapObstacles = new HashMap<>();
+    private static final Map<Long, Obstacle> mapObstacles = new HashMap<>();
 
     protected void loadObstacle(Obstacle obstacle) {
         mapObstacles.put(obstacle.getId(),obstacle);
@@ -20,7 +20,7 @@ public abstract class AbstractObstacleService {
         System.out.println(mapObstacles.remove(obstacleRemoved.getId()));
     }
 
-    public static List<Obstacle> obstacle() {
+    public static List<Obstacle> obstacles() {
         return mapObstacles.values().stream().toList();
     }
 

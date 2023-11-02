@@ -5,12 +5,14 @@ import com.rover.MarsRover.validations.InitialValidations;
 import org.springframework.stereotype.Component;
 
 @Component
-public class initialValidationsImpl implements InitialValidations {
+public class InitialValidationsImpl implements InitialValidations {
+
     @Override
     public void validations(InitialData components) {
 
-        this.runValidation(components, this::isMapActive)
-                .runValidation(components, this::isRoverActive);
+        this.runValidation(components, component->InitialValidations.mapValid(component.map()))
+                .runValidation(components, this::isRoverActive)
+                .runValidation(components, this::isInitiated);
 
              /*
              // Variante en una sola lambda
@@ -27,18 +29,28 @@ public class initialValidationsImpl implements InitialValidations {
               */
     }
 
-
     private void isMapActive(InitialData components) {
 
-            if(!components.map().isActive()) {
-                throw new RuntimeException("Se debe crear un Mapa inicialmente");
-            }
+
+       /* if(!components.map().isActive()) {
+            throw new RuntimeException("Se debe crear un Mapa inicialmente");
+        }
+
+        */
     }
+
 
     private void isRoverActive(InitialData components) {
 
         if(!components.rover().isActive()) {
             throw new RuntimeException("Se debe crear un Rover inicialmente");
+        }
+    }
+
+    private void isInitiated(InitialData components) {
+
+        if (!components.isInitiated()) {
+            throw new RuntimeException("Error, No se ha inicializado el Rover");
         }
     }
 

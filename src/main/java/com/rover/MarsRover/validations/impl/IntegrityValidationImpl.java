@@ -15,7 +15,7 @@ public class IntegrityValidationImpl implements IntegrityValidation {
         this.runValidation(obstacle,
                 integrityObstacle -> {
                         if(integrityObstacle.isEmpty())
-                            throw new RuntimeException("No se encontro ningun obstaculo con ese id");
+                            throw new RuntimeException("No se encontró ningún obstáculo con ese id");
                     });
     }
 }

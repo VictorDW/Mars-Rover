@@ -28,6 +28,7 @@ public class RoverServiceImpl implements IRoverService {
     private final BehavioralValidations behavioralValidations;
     private final InitialValidations initialValidations;
     private Rover roverIntance;
+    private boolean isInitiated = false;
 
 
     public RoverServiceImpl(RoverRepository roverRepository,
@@ -46,6 +47,7 @@ public class RoverServiceImpl implements IRoverService {
     @Override
     public RoverDataResponse createRover(RoverDataRequest roverDataRequest) {
 
+        InitialValidations.mapValid(mapNavigationService.getIntanceMap());
         //se ejecutan las validaciones de comportamiento
         behavioralValidations.validations(
                 new CoordinatesData(
@@ -73,7 +75,8 @@ public class RoverServiceImpl implements IRoverService {
         initialValidations.validations(
                 new InitialData(
                         roverIntance,
-                        mapNavigationService.getIntanceMap()
+                        mapNavigationService.getIntanceMap(),
+                        (isInitiated = true)
                 )
         );
 
@@ -106,7 +109,8 @@ public class RoverServiceImpl implements IRoverService {
         initialValidations.validations(
                 new InitialData(
                         roverIntance,
-                        mapNavigationService.getIntanceMap()
+                        mapNavigationService.getIntanceMap(),
+                        isInitiated
                 )
         );
 
@@ -126,7 +130,8 @@ public class RoverServiceImpl implements IRoverService {
         initialValidations.validations(
                 new InitialData(
                         roverIntance,
-                        mapNavigationService.getIntanceMap()
+                        mapNavigationService.getIntanceMap(),
+                        isInitiated
                 )
         );
 

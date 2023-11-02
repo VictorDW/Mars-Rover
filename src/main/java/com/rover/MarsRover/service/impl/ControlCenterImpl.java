@@ -30,35 +30,33 @@ public class ControlCenterImpl implements IControlCenter {
     public void loadItems(Rover rover, Map map) {
          this.rover = rover;
          this.map = map;
-
-        System.out.println(rover);
-        System.out.println(map);
     }
 
     @Override
     public CoordinateDataResponse assingMovement(String command) {
 
-        String movementKey = rover.getOrientation().name()+command;
+            String movementKey = rover.getOrientation().name()+command;
 
-        //Según el movimiento a realizar retorna una lista con las coordenadas actualizadas
-        List<Integer> nextPosition =
-                ConfigMovement.getMovement(movementKey)
-                        .apply(
-                                rover.getPosition().getCoordinateX(),
-                                rover.getPosition().getCoordinateY()
-                        );
+            //Según el movimiento a realizar retorna una lista con las coordenadas actualizadas
+            List<Integer> nextPosition =
+                    ConfigMovement.getMovement(movementKey)
+                            .apply(
+                                    rover.getPosition().getCoordinateX(),
+                                    rover.getPosition().getCoordinateY()
+                            );
 
-        //se ejecutan las validaciones de comportamiento para validar la nueva posición
-        behavioralValidations.validations(
-                new CoordinatesData(
-                        nextPosition.get(0),
-                        nextPosition.get(1),
-                        map.getWidth(),
-                        map.getHeight()
-                )
-        );
+            //se ejecutan las validaciones de comportamiento para validar la nueva posición
+            behavioralValidations.validations(
+                    new CoordinatesData(
+                            nextPosition.get(0),
+                            nextPosition.get(1),
+                            map.getWidth(),
+                            map.getHeight()
+                    )
+            );
 
-        return assingNextCoordinates(nextPosition.get(0), nextPosition.get(1));
+            return assingNextCoordinates(nextPosition.get(0), nextPosition.get(1));
+
     }
 
     @Override
@@ -66,10 +64,7 @@ public class ControlCenterImpl implements IControlCenter {
 
         rover.setPositionX(afterCoordinateX);
         rover.setPositionY(afterCoordinateY);
-
         roverService.updateRoverCoordinates(rover);
-
-        System.out.println("("+afterCoordinateX+","+afterCoordinateY+")");
 
         return new CoordinateDataResponse(afterCoordinateX, afterCoordinateY);
     }
@@ -77,24 +72,24 @@ public class ControlCenterImpl implements IControlCenter {
     @Override
     public String turn(ToIntFunction<Orientation> rotation) {
 
-       Orientation afterOrientation =
-                Orientation.getByPosition(
-                        rotation.applyAsInt(rover.getOrientation())
-                );
+            Orientation afterOrientation =
+                    Orientation.getByPosition(
+                            rotation.applyAsInt(rover.getOrientation())
+                    );
 
-      /*
-      //Variante para la implementación de la rotación, se obtiene es de ConfigMovement.
+          /*
+          //Variante para la implementación de la rotación, se obtiene es de ConfigMovement.
 
-      Orientation afterOrientation =
-                Orientation.getByPosition(
-                        ConfigMovement.getRotation(command)
-                                .applyAsInt(rover.getOrientation())
-                );
+          Orientation afterOrientation =
+                    Orientation.getByPosition(
+                            ConfigMovement.getRotation(command)
+                                    .applyAsInt(rover.getOrientation())
+                    );
 
-       */
-        rover.setOrientation(afterOrientation);
-        roverService.updateRoverCoordinates(rover);
+           */
+            rover.setOrientation(afterOrientation);
+            roverService.updateRoverCoordinates(rover);
 
-        return afterOrientation.name();
+            return afterOrientation.name();
     }
 }

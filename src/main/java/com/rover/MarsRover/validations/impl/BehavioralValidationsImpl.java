@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @Component
-public class behavioralValidationsImpl implements BehavioralValidations {
+public class BehavioralValidationsImpl implements BehavioralValidations {
 
 
     @Override
@@ -39,7 +39,7 @@ public class behavioralValidationsImpl implements BehavioralValidations {
 
     private void thereIsObstacle(CoordinatesData coordinates) {
 
-        AbstractObstacleService.obstacle()
+        AbstractObstacleService.obstacles()
                 .forEach(
                         obstacle->{
                             if (coordinates.x1().equals(obstacle.getPosition().getCoordinateX()) &&
