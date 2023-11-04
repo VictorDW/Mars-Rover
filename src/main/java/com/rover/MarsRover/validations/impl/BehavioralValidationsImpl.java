@@ -9,28 +9,18 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 
 @AllArgsConstructor
-@Component
+@Component("RoverValidate")
 public class BehavioralValidationsImpl implements BehavioralValidations {
 
 
     @Override
     public void validations(CoordinatesData coordinates) {
 
-       // this.runValidation(coordinates, this::isCoordenateMapValid)
         this.runValidation(coordinates, this::isMapLimit)
                 .runValidation(coordinates, this::thereIsObstacle);
     }
 
-  /*  private void isCoordenateMapValid(CoordinatesData coordinates) {
-
-        if(Objects.isNull(coordinates.x2()) || Objects.isNull(coordinates.y2())) {
-            throw new RuntimeException("Error en las dimensiones del mapa");
-        }
-    }
-
-   */
-
-    private void isMapLimit(CoordinatesData coordinates) {
+ /*   private void isMapLimit(CoordinatesData coordinates) {
 
         if (!(coordinates.x1() > 0 && coordinates.x1() < coordinates.x2() &&
                 coordinates.y1() > 0 && coordinates.y1() < coordinates.y2())) {
@@ -52,4 +42,6 @@ public class BehavioralValidationsImpl implements BehavioralValidations {
                         }
                 );
     }
+
+  */
 }

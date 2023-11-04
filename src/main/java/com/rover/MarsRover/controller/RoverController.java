@@ -8,6 +8,7 @@ import com.rover.MarsRover.service.IRoverService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class RoverController {
 
     @PostMapping
     public ResponseEntity<RoverDataResponse> createRover(@RequestBody @Valid RoverDataRequest roverDataRequest) {
-        return ResponseEntity.ok(roverService.createRover(roverDataRequest));
+        return new ResponseEntity<>(roverService.createRover(roverDataRequest), HttpStatus.CREATED);
     }
 
     @PostMapping("/initialization")

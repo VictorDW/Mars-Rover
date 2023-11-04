@@ -12,6 +12,7 @@ import com.rover.MarsRover.validations.BehavioralValidations;
 import com.rover.MarsRover.validations.DTO.CoordinatesData;
 import com.rover.MarsRover.validations.InitialValidations;
 import com.rover.MarsRover.validations.IntegrityValidation;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,7 +20,7 @@ import java.util.*;
 @Service
 public class ObstacleServiceImpl extends AbstractObstacleService implements IObstacleService {
 
-    private final ObstacleRepository obstacleRepository;
+    private  final ObstacleRepository obstacleRepository;
     private final IMapNavigationService mapNavigationService;
     private final BehavioralValidations behavioralValidations;
     private final IntegrityValidation integrityValidation;
@@ -27,6 +28,7 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
 
     public ObstacleServiceImpl(ObstacleRepository obstacleRepository,
                                IMapNavigationService mapNavigationService,
+                               @Qualifier("ObstacleValidation")
                                BehavioralValidations behavioralValidations,
                                IntegrityValidation integrityValidation) {
 
@@ -122,5 +124,16 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
         removeObstacleOfMap(obstacleRemoved.get());
 
         //removeObstacleOfList(obstacles, obstacleRemoved.get());
+    }
+
+    @Override
+    public void deleteAllObstacle() {
+
+        obstacleRepository.findAll().forEach(
+                obstacle -> {
+                    obstacleRepository.delete(obstacle);
+                    removeObstacleOfMap(obstacle);
+                }
+        );
     }
 }

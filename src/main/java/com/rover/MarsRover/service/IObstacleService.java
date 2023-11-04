@@ -2,7 +2,6 @@ package com.rover.MarsRover.service;
 
 import com.rover.MarsRover.DTO.request.ObstacleDataRequest;
 import com.rover.MarsRover.DTO.response.ObstacleDataResponse;
-import com.rover.MarsRover.model.Obstacle;
 
 import java.util.List;
 
@@ -12,6 +11,7 @@ public interface IObstacleService {
     List<ObstacleDataResponse> getAllObstacles();
     ObstacleDataResponse updateObstacle(Long id, ObstacleDataRequest obstacleDataRequest);
     void deleteObstacle(Long id);
+    void deleteAllObstacle();
 
    /* default void updateObstacleOfList(List<Obstacle> obstacles, Obstacle newObstacle) {
         obstacles.forEach(

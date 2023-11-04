@@ -1,5 +1,6 @@
 package com.rover.MarsRover.validations.impl;
 
+import com.rover.MarsRover.infra.errors.InitialValidationsExceptions;
 import com.rover.MarsRover.validations.DTO.InitialData;
 import com.rover.MarsRover.validations.InitialValidations;
 import org.springframework.stereotype.Component;
@@ -32,14 +33,14 @@ public class InitialValidationsImpl implements InitialValidations {
     private void isRoverActive(InitialData components) {
 
         if(!components.rover().isActive()) {
-            throw new RuntimeException("Se debe crear un Rover inicialmente");
+            throw new InitialValidationsExceptions("Se debe crear un Rover inicialmente");
         }
     }
 
     private void isInitiated(InitialData components) {
 
         if (!components.isInitiated()) {
-            throw new RuntimeException("Error, No se ha inicializado el Rover");
+            throw new InitialValidationsExceptions("Error, No se ha inicializado el Rover");
         }
     }
 

@@ -13,6 +13,7 @@ import com.rover.MarsRover.service.IRoverService;
 import com.rover.MarsRover.validations.*;
 import com.rover.MarsRover.validations.DTO.CoordinatesData;
 import com.rover.MarsRover.validations.DTO.InitialData;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -32,6 +33,7 @@ public class RoverServiceImpl implements IRoverService {
 
     public RoverServiceImpl(RoverRepository roverRepository,
                             IMapNavigationService mapNavigationService,
+                            @Qualifier("RoverValidate")
                             BehavioralValidations behavioralValidations,
                             InitialValidations initialValidations) {
 
