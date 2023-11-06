@@ -33,7 +33,7 @@ public class RoverController {
     }
 
     @GetMapping
-    public ResponseEntity<RoverDataResponse> getAllRover() {
+    public ResponseEntity<RoverDataResponse> getRover() {
         return ResponseEntity.ok(roverService.getRover());
     }
 

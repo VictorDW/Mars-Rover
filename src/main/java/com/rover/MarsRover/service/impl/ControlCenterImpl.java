@@ -22,7 +22,7 @@ public class ControlCenterImpl implements IControlCenter {
     public ControlCenterImpl(IRoverService roverService, BehavioralValidations behavioralValidations) {
         this.roverService = roverService;
         this.behavioralValidations = behavioralValidations;
-        ConfigMovement.MovementInitialization();
+        ConfigMovement.movementInitialization();
         //ConfigMovement.rotationInitialization();
     }
 

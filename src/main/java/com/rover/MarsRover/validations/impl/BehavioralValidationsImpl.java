@@ -14,7 +14,7 @@ public class BehavioralValidationsImpl implements BehavioralValidations {
 
 
     @Override
-    public void validations(CoordinatesData coordinates) {
+        public void validations(CoordinatesData coordinates) {
 
         this.runValidation(coordinates, this::isMapLimit)
                 .runValidation(coordinates, this::thereIsObstacle);

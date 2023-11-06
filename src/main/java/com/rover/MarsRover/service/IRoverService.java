@@ -12,6 +12,6 @@ public interface IRoverService {
     void updateRoverCoordinates(Rover rover);
     CoordinateDataResponse moveRover(String commands);
     String turnRover(String command);
-    Rover getInstanceRovert();
+    Rover getInstanceRover();
 
 }

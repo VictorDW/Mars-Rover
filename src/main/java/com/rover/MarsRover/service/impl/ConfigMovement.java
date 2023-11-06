@@ -1,12 +1,9 @@
 package com.rover.MarsRover.service.impl;
 
-import com.rover.MarsRover.model.Orientation;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
-import java.util.function.ToIntFunction;
 
 public final class ConfigMovement {
 
@@ -15,7 +12,7 @@ public final class ConfigMovement {
 
     private ConfigMovement() {}
 
-    public static void MovementInitialization() {
+    public static void movementInitialization() {
 
         functionalities.put("NF", (x, y) -> List.of(x, y-1));//SB
         functionalities.put("NB", (x, y) -> List.of(x, y+1));//SF

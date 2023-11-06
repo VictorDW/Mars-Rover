@@ -42,7 +42,7 @@ public class RoverServiceImpl implements IRoverService {
         this.controlCenter = new ControlCenterImpl(this, behavioralValidations);
         this.behavioralValidations = behavioralValidations;
         this.initialValidations = initialValidations;
-        this.roverIntance = getInstanceRovert();
+        this.roverIntance = getInstanceRover();
     }
 
     @Override
@@ -157,7 +157,7 @@ public class RoverServiceImpl implements IRoverService {
     }
 
     @Override
-    public Rover getInstanceRovert() {
+    public Rover getInstanceRover() {
 
         if(roverIntance == null) {
             roverIntance = roverRepository.findAll().stream()

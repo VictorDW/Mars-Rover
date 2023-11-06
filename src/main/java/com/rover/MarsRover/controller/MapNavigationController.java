@@ -23,7 +23,7 @@ public class MapNavigationController {
     }
 
     @GetMapping
-    public ResponseEntity<MapDataResponse> getAllMap() {
+    public ResponseEntity<MapDataResponse> getMap() {
         return ResponseEntity.ok(mapNavigationService.getMap());
     }
 }
