@@ -17,7 +17,7 @@ public abstract class AbstractObstacleService {
                 .setPosition(newObstacle.getPosition());
     }
     protected void removeObstacleOfMap(Obstacle obstacleRemoved) {
-        System.out.println(mapObstacles.remove(obstacleRemoved.getId()));
+        mapObstacles.remove(obstacleRemoved.getId());
     }
 
     public static List<Obstacle> obstacles() {

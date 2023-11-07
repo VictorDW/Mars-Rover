@@ -14,20 +14,6 @@ public class InitialValidationsImpl implements InitialValidations {
         this.runValidation(components, component -> InitialValidations.isMapActive(component.map()))
                 .runValidation(components, this::isRoverActive)
                 .runValidation(components, this::isInitiated);
-
-             /*
-             // Variante en una sola lambda
-
-             .runValidation(components,
-                        items -> {
-                            if(!items.rover().isActive()) {
-                                throw new RuntimeException("Se debe crear un Rover inicialmente");
-                            }else if(!items.map().isActive()) {
-                                throw new RuntimeException("Se debe crear un Map inicialmente");
-                            }
-                        });
-
-              */
     }
 
     private void isRoverActive(InitialData components) {

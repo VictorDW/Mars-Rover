@@ -8,7 +8,6 @@ import java.util.function.BiFunction;
 public final class ConfigMovement {
 
     private static final Map<String, BiFunction<Integer, Integer, List<Integer>>> functionalities = new HashMap<>();
-   // private static final Map<String, ToIntFunction<Orientation>> rotarionOrientation = new HashMap<>();
 
     private ConfigMovement() {}
 
@@ -24,36 +23,8 @@ public final class ConfigMovement {
         functionalities.put("WB", (x, y) -> functionalities.get("EF").apply(x,y));
     }
 
- /*  public static void rotationInitialization() {
-
-        // implementación para la rotación almacenada en un direccionario
-
-        rotarionOrientation.put("R",
-                beforeOrientatation -> {
-                    int newOrientation = beforeOrientatation.ordinal() + 1;
-                    return newOrientation > (Orientation.values().length - 1) ?
-                            0 : newOrientation;
-                }
-        );
-
-        rotarionOrientation.put("L",
-                beforeOrientatation -> {
-                    int newOrientation = beforeOrientatation.ordinal() - 1;
-                    return newOrientation < 0 ?
-                            (Orientation.values().length - 1) :
-                            newOrientation;
-                }
-        );
-    }*/
-
     public static BiFunction<Integer, Integer, List<Integer>> getMovement(String key) {
         return functionalities.get(key);
     }
-
-  /*  public static ToIntFunction<Orientation> getRotation(String key) {
-        return rotarionOrientation.get(key);
-    }
-
-   */
 
 }

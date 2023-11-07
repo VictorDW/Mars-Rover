@@ -51,7 +51,7 @@ public class RoverServiceImpl implements IRoverService {
         //validación de inicialización
         InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
 
-        //se ejecutan las validaciones de comportamiento
+        //validaciones de comportamiento
         behavioralValidations.validations(
                 new CoordinatesData(
                         roverDataRequest.coordinateX(),
@@ -91,12 +91,6 @@ public class RoverServiceImpl implements IRoverService {
     @Override
     public RoverDataResponse getRover() {
 
-        /*
-        //Esta variante es para buscar directamente en la BD
-
-        Optional<Rover> rover = roverRepository.findAll().stream().findFirst();
-        return rover.map(RoverDataResponse::new).orElse(null);
-         */
         return roverIntance.isActive()? new RoverDataResponse(roverIntance) : null;
     }
 

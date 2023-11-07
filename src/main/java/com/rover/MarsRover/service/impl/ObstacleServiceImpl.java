@@ -24,7 +24,6 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
     private final IMapNavigationService mapNavigationService;
     private final BehavioralValidations behavioralValidations;
     private final IntegrityValidation integrityValidation;
-   // private final static List<Obstacle> obstacles = new ArrayList<>();
 
     public ObstacleServiceImpl(ObstacleRepository obstacleRepository,
                                IMapNavigationService mapNavigationService,
@@ -100,8 +99,6 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
 
         updateObstacleOfMap(newObstacle.get());
 
-        //updateObstacleOfList(obstacles, newObstacle.get());
-
         return new ObstacleDataResponse(
                 obstacleRepository.save(
                         newObstacle.get()
@@ -123,7 +120,6 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
 
         removeObstacleOfMap(obstacleRemoved.get());
 
-        //removeObstacleOfList(obstacles, obstacleRemoved.get());
     }
 
     @Override

@@ -12,6 +12,4 @@ public interface IControlCenter {
     CoordinateDataResponse assingMovement(String command);
     CoordinateDataResponse assingNextCoordinates(Integer afterCoordinateX, Integer afterCoordinateY);
    String turn(ToIntFunction<Orientation> rotation);
-
-   //String turn(String command);
 }

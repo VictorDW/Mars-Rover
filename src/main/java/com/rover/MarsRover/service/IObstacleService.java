@@ -13,21 +13,4 @@ public interface IObstacleService {
     void deleteObstacle(Long id);
     void deleteAllObstacle();
 
-   /* default void updateObstacleOfList(List<Obstacle> obstacles, Obstacle newObstacle) {
-        obstacles.forEach(
-                obstacle -> {
-                    if (obstacle.equals(newObstacle)) {
-                        //obstacles.set(obstacles.indexOf(obstacle), afterObstacle);
-                            obstacle.setPosition(newObstacle.getPosition());
-                    }
-                }
-        );
-    }
-    default void removeObstacleOfList(List<Obstacle> obstacles, Obstacle obstacleToRemoved) {
-        boolean isRemove = obstacles.removeIf(obstacle -> obstacle.equals(obstacleToRemoved));
-        System.out.println(isRemove);
-    }
-
-    */
-
 }

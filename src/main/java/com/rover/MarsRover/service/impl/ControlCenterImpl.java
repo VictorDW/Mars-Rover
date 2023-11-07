@@ -23,7 +23,6 @@ public class ControlCenterImpl implements IControlCenter {
         this.roverService = roverService;
         this.behavioralValidations = behavioralValidations;
         ConfigMovement.movementInitialization();
-        //ConfigMovement.rotationInitialization();
     }
 
     @Override
@@ -77,16 +76,6 @@ public class ControlCenterImpl implements IControlCenter {
                             rotation.applyAsInt(rover.getOrientation())
                     );
 
-          /*
-          //Variante para la implementación de la rotación, se obtiene es de ConfigMovement.
-
-          Orientation afterOrientation =
-                    Orientation.getByPosition(
-                            ConfigMovement.getRotation(command)
-                                    .applyAsInt(rover.getOrientation())
-                    );
-
-           */
             rover.setOrientation(afterOrientation);
             roverService.updateRoverCoordinates(rover);
 
