@@ -5,13 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-public final class ConfigMovement {
+public final class MovementHandler {
 
-    private static final Map<String, BiFunction<Integer, Integer, List<Integer>>> functionalities = new HashMap<>();
+    private final Map<String, BiFunction<Integer, Integer, List<Integer>>> functionalities = new HashMap<>();
+    private static MovementHandler instance;
+    private MovementHandler() {
+        movementInitialization();
+    }
 
-    private ConfigMovement() {}
-
-    public static void movementInitialization() {
+    private  void movementInitialization() {
 
         functionalities.put("NF", (x, y) -> List.of(x, y-1));//SB
         functionalities.put("NB", (x, y) -> List.of(x, y+1));//SF
@@ -24,7 +26,10 @@ public final class ConfigMovement {
     }
 
     public static BiFunction<Integer, Integer, List<Integer>> getMovement(String key) {
-        return functionalities.get(key);
-    }
 
+        if (instance == null ) {
+            instance = new MovementHandler();
+        }
+        return instance.functionalities.get(key);
+    }
 }

@@ -25,10 +25,10 @@ public class ObstacleBehaviorValidationImpl implements BehavioralValidations {
 
         roverRepository.findAll().stream().findFirst().ifPresent(
                 rover -> {
-                    if (coordinates.x1().equals(rover.getPosition().getCoordinateX()) &&
-                            coordinates.y1().equals(rover.getPosition().getCoordinateY())) {
+                    if (coordinates.x().equals(rover.getPosition().getCoordinateX()) &&
+                            coordinates.y().equals(rover.getPosition().getCoordinateY())) {
 
-                        throw new BehaviorValidationException("El rover esta en las coordenadas (" + coordinates.x1() + "," + coordinates.y1() + ")");
+                        throw new BehaviorValidationException("El rover esta en las coordenadas (" + coordinates.x() + "," + coordinates.y() + ")");
                     }
                 }
         );

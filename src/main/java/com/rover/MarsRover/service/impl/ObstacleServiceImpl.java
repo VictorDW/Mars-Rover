@@ -38,13 +38,8 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
         obstacleRepository.findAll().forEach(this::loadObstacle);
     }
 
-    @Override
-    public ObstacleDataResponse createObstacle(ObstacleDataRequest obstacleDataRequest) {
+    private void executeObstacleBehaviorValidation(ObstacleDataRequest obstacleDataRequest) {
 
-        //validación de inicialización
-        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
-
-        //validaciones de comportamiento
         behavioralValidations.validations(
                 new CoordinatesData(
                         obstacleDataRequest.coordinateX(),
@@ -53,6 +48,16 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
                         mapNavigationService.getIntanceMap().getHeight()
                 )
         );
+    }
+
+    @Override
+    public ObstacleDataResponse createObstacle(ObstacleDataRequest obstacleDataRequest) {
+
+        //validación de inicialización
+        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
+
+        //validaciones de comportamiento
+        executeObstacleBehaviorValidation(obstacleDataRequest);
 
         Obstacle obstacle = new Obstacle();
 
@@ -78,14 +83,7 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
     public ObstacleDataResponse updateObstacle(Long id, ObstacleDataRequest obstacleDataRequest) {
 
         //Validaciones de comportamiento
-        behavioralValidations.validations(
-                new CoordinatesData(
-                        obstacleDataRequest.coordinateX(),
-                        obstacleDataRequest.coordinateY(),
-                        mapNavigationService.getIntanceMap().getWidth(),
-                        mapNavigationService.getIntanceMap().getHeight()
-                )
-        );
+        executeObstacleBehaviorValidation(obstacleDataRequest);
 
         Optional<Obstacle> newObstacle = obstacleRepository.findById(id).map(
                 obstacle -> {

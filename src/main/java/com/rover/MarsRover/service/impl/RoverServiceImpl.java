@@ -45,13 +45,7 @@ public class RoverServiceImpl implements IRoverService {
         this.roverIntance = getInstanceRover();
     }
 
-    @Override
-    public RoverDataResponse createRover(RoverDataRequest roverDataRequest) {
-
-        //validación de inicialización
-        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
-
-        //validaciones de comportamiento
+    private void executeBehaviorValidations(RoverDataRequest roverDataRequest) {
         behavioralValidations.validations(
                 new CoordinatesData(
                         roverDataRequest.coordinateX(),
@@ -60,6 +54,15 @@ public class RoverServiceImpl implements IRoverService {
                         mapNavigationService.getIntanceMap().getHeight()
                 )
         );
+    }
+    @Override
+    public RoverDataResponse createRover(RoverDataRequest roverDataRequest) {
+
+        //validación de inicialización
+        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
+
+        //validaciones de comportamiento
+        executeBehaviorValidations(roverDataRequest);
 
         roverIntance.setName(roverDataRequest.name());
         roverIntance.setPosition(new Position(roverDataRequest.coordinateX(), roverDataRequest.coordinateY()));
@@ -71,27 +74,43 @@ public class RoverServiceImpl implements IRoverService {
         return new RoverDataResponse(roverIntance);
     }
 
-    @Override
-    public String initialization() {
+    private void executeInitialValidations() {
 
-        //se ejecuta las validaciones de inicialización
         initialValidations.validations(
                 new InitialData(
                         roverIntance,
                         mapNavigationService.getIntanceMap(),
-                        (isInitiated = true)
+                        isInitiated
+                )
+        );
+    }
+    private void executeInitialValidations(boolean isInitiated) {
+
+        initialValidations.validations(
+                new InitialData(
+                        roverIntance,
+                        mapNavigationService.getIntanceMap(),
+                        isInitiated
                 )
         );
 
-        controlCenter.loadItems(roverIntance, mapNavigationService.getIntanceMap());
+        this.isInitiated = isInitiated;
+    }
 
+    @Override
+    public String initialization() {
+
+        //se ejecuta las validaciones de inicialización
+        executeInitialValidations(true);
+        controlCenter.loadItems(roverIntance, mapNavigationService.getIntanceMap());
         return "El Rover esta listo para explorar";
     }
 
     @Override
     public RoverDataResponse getRover() {
-
-        return roverIntance.isActive()? new RoverDataResponse(roverIntance) : null;
+        return roverIntance.isActive()?
+                new RoverDataResponse(roverIntance) :
+                null;
     }
 
     @Override
@@ -103,13 +122,7 @@ public class RoverServiceImpl implements IRoverService {
     public CoordinateDataResponse moveRover(String commands) {
 
         //se ejecuta las validaciones de inicialización
-        initialValidations.validations(
-                new InitialData(
-                        roverIntance,
-                        mapNavigationService.getIntanceMap(),
-                        isInitiated
-                )
-        );
+        executeInitialValidations();
 
         String[] split = commands.split(",");
         List<String> listCommands = Arrays.asList(split);
@@ -123,14 +136,7 @@ public class RoverServiceImpl implements IRoverService {
     @Override
     public String turnRover(String command) {
 
-        //se ejecuta las validaciones de inicialización
-        initialValidations.validations(
-                new InitialData(
-                        roverIntance,
-                        mapNavigationService.getIntanceMap(),
-                        isInitiated
-                )
-        );
+        executeInitialValidations();
 
         if(command.equals("R")) {
             return controlCenter.turn(
@@ -160,6 +166,5 @@ public class RoverServiceImpl implements IRoverService {
         }
         return roverIntance;
     }
-
 
 }

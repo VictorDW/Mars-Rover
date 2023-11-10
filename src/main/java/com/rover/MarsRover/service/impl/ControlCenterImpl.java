@@ -22,13 +22,24 @@ public class ControlCenterImpl implements IControlCenter {
     public ControlCenterImpl(IRoverService roverService, BehavioralValidations behavioralValidations) {
         this.roverService = roverService;
         this.behavioralValidations = behavioralValidations;
-        ConfigMovement.movementInitialization();
     }
 
     @Override
     public void loadItems(Rover rover, Map map) {
          this.rover = rover;
          this.map = map;
+    }
+
+    private void executeBehaviorValidation(List<Integer> nextPosition) {
+        //se ejecutan las validaciones de comportamiento para validar la nueva posición
+        behavioralValidations.validations(
+                new CoordinatesData(
+                        nextPosition.get(0),
+                        nextPosition.get(1),
+                        map.getWidth(),
+                        map.getHeight()
+                )
+        );
     }
 
     @Override
@@ -38,23 +49,15 @@ public class ControlCenterImpl implements IControlCenter {
 
             //Según el movimiento a realizar retorna una lista con las coordenadas actualizadas
             List<Integer> nextPosition =
-                    ConfigMovement.getMovement(movementKey)
+                    MovementHandler.getMovement(movementKey)
                             .apply(
                                     rover.getPosition().getCoordinateX(),
                                     rover.getPosition().getCoordinateY()
                             );
 
-            //se ejecutan las validaciones de comportamiento para validar la nueva posición
-            behavioralValidations.validations(
-                    new CoordinatesData(
-                            nextPosition.get(0),
-                            nextPosition.get(1),
-                            map.getWidth(),
-                            map.getHeight()
-                    )
-            );
+        executeBehaviorValidation(nextPosition);
 
-            return assingNextCoordinates(nextPosition.get(0), nextPosition.get(1));
+        return assingNextCoordinates(nextPosition.get(0), nextPosition.get(1));
 
     }
 

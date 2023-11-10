@@ -8,10 +8,10 @@ public interface BehavioralValidations extends IValidations<CoordinatesData>{
 
     default void isMapLimit(CoordinatesData coordinates) {
 
-        if (!(coordinates.x1() > 0 && coordinates.x1() < coordinates.x2() &&
-                coordinates.y1() > 0 && coordinates.y1() < coordinates.y2())) {
+        if (!(coordinates.x() > 0 && coordinates.x() < coordinates.widthMap() &&
+                coordinates.y() > 0 && coordinates.y() < coordinates.heightMap())) {
 
-            throw new BehaviorValidationException("La posición ("+coordinates.x1()+","+coordinates.y1()+") esta superando los limites del mapa");
+            throw new BehaviorValidationException("La posición ("+coordinates.x()+","+coordinates.y()+") esta superando los limites del mapa");
         }
     }
 
@@ -20,10 +20,10 @@ public interface BehavioralValidations extends IValidations<CoordinatesData>{
         AbstractObstacleService.obstacles()
                 .forEach(
                         obstacle->{
-                            if (coordinates.x1().equals(obstacle.getPosition().getCoordinateX()) &&
-                                    coordinates.y1().equals(obstacle.getPosition().getCoordinateY())) {
+                            if (coordinates.x().equals(obstacle.getPosition().getCoordinateX()) &&
+                                    coordinates.y().equals(obstacle.getPosition().getCoordinateY())) {
 
-                                throw new BehaviorValidationException("Hay un obstaculo en las coordenadas (" + coordinates.x1() + "," + coordinates.y1() + ")");
+                                throw new BehaviorValidationException("Hay un obstaculo en las coordenadas (" + coordinates.x() + "," + coordinates.y() + ")");
                             }
                         }
                 );
