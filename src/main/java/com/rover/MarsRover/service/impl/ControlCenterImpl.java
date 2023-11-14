@@ -10,7 +10,6 @@ import com.rover.MarsRover.validations.BehavioralValidations;
 import com.rover.MarsRover.validations.DTO.CoordinatesData;
 
 import java.util.List;
-import java.util.function.ToIntFunction;
 
 public class ControlCenterImpl implements IControlCenter {
 
@@ -45,15 +44,15 @@ public class ControlCenterImpl implements IControlCenter {
     @Override
     public CoordinateDataResponse assingMovement(String command) {
 
-            String movementKey = rover.getOrientation().name()+command;
+        String movementKey = rover.getOrientation().name()+command;
 
-            //Según el movimiento a realizar retorna una lista con las coordenadas actualizadas
-            List<Integer> nextPosition =
-                    MovementHandler.getMovement(movementKey)
-                            .apply(
-                                    rover.getPosition().getCoordinateX(),
-                                    rover.getPosition().getCoordinateY()
-                            );
+        //Según el movimiento a realizar retorna una lista con las coordenadas actualizadas
+        List<Integer> nextPosition =
+                MovementHandler.getMovement(movementKey)
+                        .apply(
+                                rover.getPosition().getCoordinateX(),
+                                rover.getPosition().getCoordinateY()
+                        );
 
         executeBehaviorValidation(nextPosition);
 
@@ -72,11 +71,12 @@ public class ControlCenterImpl implements IControlCenter {
     }
 
     @Override
-    public String turn(ToIntFunction<Orientation> rotation) {
+    public String turn(String command) {
 
             Orientation afterOrientation =
                     Orientation.getByPosition(
-                            rotation.applyAsInt(rover.getOrientation())
+                            MovementHandler.getTurn(command)
+                                    .applyAsInt(rover.getOrientation())
                     );
 
             rover.setOrientation(afterOrientation);

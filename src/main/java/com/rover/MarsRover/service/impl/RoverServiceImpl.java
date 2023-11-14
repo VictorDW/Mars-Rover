@@ -3,7 +3,6 @@ package com.rover.MarsRover.service.impl;
 import com.rover.MarsRover.DTO.request.RoverDataRequest;
 import com.rover.MarsRover.DTO.response.CoordinateDataResponse;
 import com.rover.MarsRover.DTO.response.RoverDataResponse;
-import com.rover.MarsRover.model.Orientation;
 import com.rover.MarsRover.model.Position;
 import com.rover.MarsRover.model.Rover;
 import com.rover.MarsRover.repository.RoverRepository;
@@ -45,6 +44,9 @@ public class RoverServiceImpl implements IRoverService {
         this.roverIntance = getInstanceRover();
     }
 
+    private void executeMapValidation() {
+        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
+    }
     private void executeBehaviorValidations(RoverDataRequest roverDataRequest) {
         behavioralValidations.validations(
                 new CoordinatesData(
@@ -55,11 +57,12 @@ public class RoverServiceImpl implements IRoverService {
                 )
         );
     }
+
     @Override
     public RoverDataResponse createRover(RoverDataRequest roverDataRequest) {
 
         //validación de inicialización
-        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
+        executeMapValidation();
 
         //validaciones de comportamiento
         executeBehaviorValidations(roverDataRequest);
@@ -137,23 +140,7 @@ public class RoverServiceImpl implements IRoverService {
     public String turnRover(String command) {
 
         executeInitialValidations();
-
-        if(command.equals("R")) {
-            return controlCenter.turn(
-                        beforeOrientatation -> {
-                            int newOrientation = beforeOrientatation.ordinal() + 1;
-                            return newOrientation > (Orientation.values().length - 1) ?
-                                        0 : newOrientation;
-                        });
-        }else{
-            return controlCenter.turn(
-                        beforeOrientatation -> {
-                            int newOrientation = beforeOrientatation.ordinal() - 1;
-                            return newOrientation < 0 ?
-                                        (Orientation.values().length-1) :
-                                         newOrientation;
-                        });
-        }
+        return controlCenter.turn(command);
     }
 
     @Override

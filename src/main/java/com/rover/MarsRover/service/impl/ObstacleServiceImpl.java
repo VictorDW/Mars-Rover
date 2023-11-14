@@ -38,6 +38,10 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
         obstacleRepository.findAll().forEach(this::loadObstacle);
     }
 
+    private void executeMapValidation() {
+        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
+    }
+
     private void executeObstacleBehaviorValidation(ObstacleDataRequest obstacleDataRequest) {
 
         behavioralValidations.validations(
@@ -54,7 +58,7 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
     public ObstacleDataResponse createObstacle(ObstacleDataRequest obstacleDataRequest) {
 
         //validación de inicialización
-        InitialValidations.isMapActive(mapNavigationService.getIntanceMap());
+        executeMapValidation();
 
         //validaciones de comportamiento
         executeObstacleBehaviorValidation(obstacleDataRequest);
@@ -79,6 +83,10 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
         return obstacleRepository.findAll().stream().map(ObstacleDataResponse::new).toList();
     }
 
+    private void executeIntegrityValidation(Optional<Obstacle> newObstacle) {
+        integrityValidation.validations(newObstacle);
+    }
+
     @Override
     public ObstacleDataResponse updateObstacle(Long id, ObstacleDataRequest obstacleDataRequest) {
 
@@ -93,7 +101,7 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
                 });
 
         //Validación de integridad
-        integrityValidation.validations(newObstacle);
+        executeIntegrityValidation(newObstacle);
 
         updateObstacleOfMap(newObstacle.get());
 
@@ -114,7 +122,7 @@ public class ObstacleServiceImpl extends AbstractObstacleService implements IObs
                 });
 
         //Validación de integridad
-        integrityValidation.validations(obstacleRemoved);
+        executeIntegrityValidation(obstacleRemoved);
 
         removeObstacleOfMap(obstacleRemoved.get());
 
